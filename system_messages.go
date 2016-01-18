@@ -1,7 +1,7 @@
 package splunk
 
 import (
-    "fmt"
+	"fmt"
 )
 
 const (
@@ -17,7 +17,7 @@ type Message struct {
 }
 
 func DisplayMessage(s *Session, m Message) (err error) {
-    url := fmt.Sprintf("https://%s:%d/services/messages", s.Host, s.Port)
-    fmt.Println(url)
+	url := fmt.Sprintf("https://%s:%d/services/messages", s.Host, s.Port)
+	fmt.Println(url)
 	return nil
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/bdenning/splunk"
 )
 
-
 func TestDisplayMessage(t *testing.T) {
 	s := sessionInit()
 

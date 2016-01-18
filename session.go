@@ -1,8 +1,8 @@
 package splunk
 
 type Session struct {
-    Host string
-    Port int
+	Host     string
+	Port     int
 	username string
 	password string
 }
