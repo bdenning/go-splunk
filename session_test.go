@@ -9,6 +9,8 @@ import (
 )
 
 const (
+	testHost     = "localhost"
+	testPort     = 8089
 	testUsername = "admin"
 	testPassword = "changeme"
 )
@@ -16,7 +18,7 @@ const (
 // sessionInit is a small help function used to quickly establish a session for
 // the unit tests.
 func sessionInit() (s *splunk.Session) {
-	s, err := splunk.NewSession("localhost", 8089, testUsername, testPassword)
+	s, err := splunk.NewSession(testHost, testPort, testUsername, testPassword)
 	if err != nil {
 		fmt.Println("Authentication error. Stopping all unit tests")
 		os.Exit(-1)
@@ -25,8 +27,9 @@ func sessionInit() (s *splunk.Session) {
 	return s
 }
 
+// TestNewSession will ensure that
 func TestNewSession(t *testing.T) {
-	_, err := splunk.NewSession("localhost", 8089, testUsername, testPassword)
+	_, err := splunk.NewSession(testHost, testPort, testUsername, testPassword)
 	if err != nil {
 		t.Error(err)
 	}

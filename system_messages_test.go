@@ -9,6 +9,5 @@ import (
 func TestDisplayMessage(t *testing.T) {
 	s := sessionInit()
 
-	m := splunk.Message{Name: "Name", Value: "Value", Severity: splunk.MessageSeverityInfo}
-	splunk.DisplayMessage(s, m)
+	splunk.DisplayMessage(s, splunk.Message{"Name", "Value", splunk.MessageSeverityInfo})
 }

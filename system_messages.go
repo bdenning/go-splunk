@@ -2,6 +2,7 @@ package splunk
 
 import (
 	"fmt"
+	"net/http"
 )
 
 const (
@@ -17,7 +18,16 @@ type Message struct {
 }
 
 func DisplayMessage(s *Session, m Message) (err error) {
-	url := fmt.Sprintf("https://%s:%d/services/messages", s.Host, s.Port)
-	fmt.Println(url)
+	req, err := http.NewRequest("GET", fmt.Sprintf("https://%s:%d/services/messages", s.Host, s.Port), nil)
+	if err != nil {
+		return err
+	}
+
+	// TODO(@bdenning) Capture and parse the response here to make sure all is well
+	_, err = s.Do(req)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
