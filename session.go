@@ -18,7 +18,7 @@ func NewSession(host string, port int, username string, password string) (sessio
 	return &Session{host, port, username, password, client}, nil
 }
 
-// Do wraps http.Do() by adding the Splunk username and password to the request before making the request.
+// Do wraps http.Client.Do() by adding the Splunk username and password to the request before making the request.
 func (s *Session) Do(req *http.Request) (resp *http.Response, err error) {
 	req.SetBasicAuth(s.username, s.password)
 
