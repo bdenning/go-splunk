@@ -9,5 +9,8 @@ import (
 func TestDisplayMessage(t *testing.T) {
 	s := sessionInit()
 
-	splunk.DisplayMessage(s, splunk.Message{"Name", "Value", splunk.MessageSeverityInfo})
+	err := splunk.DisplayMessage(s, splunk.Message{"Name", "Value", splunk.MessageSeverityInfo})
+	if err != nil {
+		t.Fail()
+	}
 }
