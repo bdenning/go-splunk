@@ -12,7 +12,7 @@ const (
 	testHost     = "172.17.0.1"
 	testPort     = 8089
 	testUsername = "admin"
-	testPassword = "password"
+	testPassword = "p@ssword"
 )
 
 // sessionInit is a small help function used to quickly establish a session for
