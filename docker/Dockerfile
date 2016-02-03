@@ -13,9 +13,10 @@ RUN splunk edit user admin -password p@ssword -role admin -auth admin:changeme
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod +x /sbin/entrypoint.sh
 
-EXPOSE 8000/tcp 8089/tcp 9997/tcp 9514/tcp
+RUN chown -R splunk.splunk /opt/splunk
 WORKDIR /opt/splunk
-
 USER splunk
+
+EXPOSE 8000/tcp 8089/tcp 9997/tcp 9514/tcp
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]
