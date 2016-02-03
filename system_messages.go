@@ -2,6 +2,7 @@ package splunk
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -24,10 +25,14 @@ func DisplayMessage(s *Session, m Message) (err error) {
 	}
 
 	// TODO(@bdenning) Capture and parse the response here to make sure all is well
-	_, err = s.Do(req)
+	resp, err := s.Do(req)
 	if err != nil {
 		return err
 	}
+
+	// TODO(@bdenning) Remove this, it's just here for debugging for now.
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Printf("%v", string(body))
 
 	return nil
 }

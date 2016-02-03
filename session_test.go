@@ -9,10 +9,10 @@ import (
 )
 
 const (
-	testHost     = "localhost"
+	testHost     = "172.17.0.1"
 	testPort     = 8089
 	testUsername = "admin"
-	testPassword = "changeme"
+	testPassword = "password"
 )
 
 // sessionInit is a small help function used to quickly establish a session for
@@ -27,7 +27,6 @@ func sessionInit() (s *splunk.Session) {
 	return s
 }
 
-// TestNewSession will ensure that
 func TestNewSession(t *testing.T) {
 	_, err := splunk.NewSession(testHost, testPort, testUsername, testPassword)
 	if err != nil {

@@ -9,8 +9,7 @@ import (
 func TestDisplayMessage(t *testing.T) {
 	s := sessionInit()
 
-	err := splunk.DisplayMessage(s, splunk.Message{"Name", "Value", splunk.MessageSeverityInfo})
-	if err != nil {
+	if err := splunk.DisplayMessage(s, splunk.Message{"Name", "Value", splunk.MessageSeverityInfo}); err != nil {
 		t.Fail()
 	}
 }
