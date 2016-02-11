@@ -1,6 +1,7 @@
 package splunk
 
 import (
+	"fmt"
 	"net/url"
 )
 
@@ -23,6 +24,15 @@ func DisplayMessage(s *Session, m Message) (err error) {
 	v.Set("severity", m.Severity)
 
 	_, err = s.Request("POST", "/services/messages", v)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func RemoveMessage(s *Session, m Message) (err error) {
+	_, err = s.Request("DELETE", fmt.Sprintf("/services/messages/%s", m.Name), url.Values{})
 	if err != nil {
 		return err
 	}

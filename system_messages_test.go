@@ -17,3 +17,12 @@ func TestDisplayMessage(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestRemoveMessage(t *testing.T) {
+	s := sessionInit()
+
+	err := splunk.RemoveMessage(s, splunk.Message{Name: "UnitTest"})
+	if err != nil {
+		t.Fail()
+	}
+}
