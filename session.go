@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
 type Session struct {
@@ -16,7 +18,8 @@ type Session struct {
 }
 
 func NewSession(host string, port int, username string, password string) (session *Session, err error) {
-	// Disable certificate validation here, for now.
+	// @TODO(bdenning) allow the session struct to take certificate information
+	// Disable certificate validation here... for now.
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -27,14 +30,7 @@ func NewSession(host string, port int, username string, password string) (sessio
 
 	session = &Session{host, port, username, password, client}
 
-	// Create a new request to grab the Splunk service information
-	req, err := http.NewRequest("GET", fmt.Sprintf("https://%s:%d/services/server/info", host, port), nil)
-	if err != nil {
-		return &Session{}, err
-	}
-
-	// Make the request and check that we don't recieve a connection error
-	resp, err := session.Do(req)
+	resp, err := session.Request("GET", "/services/server/info", url.Values{})
 	if err != nil {
 		return &Session{}, err
 	}
@@ -48,8 +44,15 @@ func NewSession(host string, port int, username string, password string) (sessio
 	return session, nil
 }
 
-// Do wraps http.Client.Do() by adding the Splunk username and password to the request before making the request.
-func (s *Session) Do(req *http.Request) (resp *http.Response, err error) {
+// Request makes a call to the specified URL with username and password information already provided.
+func (s *Session) Request(method, url string, values url.Values) (resp *http.Response, err error) {
+	values.Set("output_mode", "json")
+
+	req, err := http.NewRequest(method, fmt.Sprintf("https://%s:%d/%s", s.Host, s.Port, url), strings.NewReader(values.Encode()))
+	if err != nil {
+		return &http.Response{}, err
+	}
+
 	req.SetBasicAuth(s.username, s.password)
 
 	resp, err = s.client.Do(req)
