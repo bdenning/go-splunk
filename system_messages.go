@@ -2,6 +2,7 @@ package splunk
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/url"
 )
 
@@ -28,6 +29,13 @@ func Messages(s *Session) (m []Message, err error) {
 
 	// @TODO(bdenning) We need to parse the returned jason in order to create a slice of messages
 	// which is then returned by this function.
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return m, err
+	}
+
+	fmt.Println(string(body))
 
 	return m, nil
 }
