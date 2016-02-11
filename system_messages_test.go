@@ -18,6 +18,16 @@ func TestDisplayMessage(t *testing.T) {
 	}
 }
 
+func TestMessages(t *testing.T) {
+	s := sessionInit()
+
+	_, err := splunk.Messages(s)
+	if err != nil {
+		t.Fail()
+	}
+
+}
+
 func TestRemoveMessage(t *testing.T) {
 	s := sessionInit()
 
