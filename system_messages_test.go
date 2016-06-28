@@ -3,7 +3,7 @@ package splunk_test
 import (
 	"testing"
 
-	"github.com/bdenning/splunk"
+	"github.com/bdenning/go-splunk"
 )
 
 func TestDisplayMessage(t *testing.T) {
